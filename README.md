@@ -1,95 +1,112 @@
-# 🧪 I'm Mottu Mobile — Teste prático Flutter com PokeAPI
+# Pokedex Flutter App
 
-Este teste está dividido em três níveis de dificuldade. Você pode desenvolver seu App atendendo apenas a um nível ou a todos, conforme desejar demonstrar suas habilidades.
+## Descrição
 
----
-
-## ✅ Etapas Iniciais (obrigatórias para qualquer nível)
-
-1. Faça um **fork deste repositório** para o seu GitHub como privado.
-2. Adicione os usuários abaixo como colaboradores:
-   - `@brunosmm`
-   - `@BetoMottu`
-3. Crie um novo projeto Flutter com o package:
-4. Utilize a [PokeAPI](https://pokeapi.co/) como fonte de dados.
-5. Crie um arquivo `README.md` com:
-- Quais funcionalidades foram implementadas
-- Como rodar o projeto
-- Arquitetura utilizada (se houver)
-6. O app deve buildar também para a plataforma **iOS**.
+Este é um projeto Flutter desenvolvido para visualizar Pokemons como uma Pokedex, podendo favoritar e buscar seus pokemons favoritos. Ele utiliza uma arquitetura modularizada com **Flutter Modular** e gerenciamento de estado via **MobX**.
 
 ---
 
-## 📚 Referência da API
+## Tecnologias e Bibliotecas
 
-A API utilizada neste teste é a [PokeAPI](https://pokeapi.co/). Abaixo, alguns endpoints úteis:
+O projeto utiliza as seguintes bibliotecas principais:
 
-| Recurso              | Endpoint base                                 | Exemplo                                      |
-|----------------------|-----------------------------------------------|----------------------------------------------|
-| Lista de pokémons    | `/api/v2/pokemon`                             | https://pokeapi.co/api/v2/pokemon            |
-| Detalhes do pokémon  | `/api/v2/pokemon/{name}`                      | https://pokeapi.co/api/v2/pokemon/pikachu    |
-| Tipos                | `/api/v2/type`                                | https://pokeapi.co/api/v2/type/electric      |
-| Habilidades          | `/api/v2/ability`                             | https://pokeapi.co/api/v2/ability/1          |
+- **[flutter_modular](https://pub.dev/packages/flutter_modular)**: Para modularização da aplicação e injeção de dependências.
+- **[mobx](https://pub.dev/packages/mobx) / [flutter_mobx](https://pub.dev/packages/flutter_mobx)**: Para gerenciamento reativo de estado.
+- **[dio](https://pub.dev/packages/dio)**: Para comunicação HTTP com a API.
+- **[easy_localization](https://pub.dev/packages/easy_localization)**: Para suporte a múltiplos idiomas.
+- **[flutter_dotenv](https://pub.dev/packages/flutter_dotenv)**: Para gerenciar variáveis de ambiente.
+- **[google_fonts](https://pub.dev/packages/google_fonts)**: Para usar fontes customizadas facilmente.
+- **[fluttertoast](https://pub.dev/packages/fluttertoast)**: Para exibir notificações rápidas (toasts) ao usuário.
+- **[mask_text_input_formatter](https://pub.dev/packages/mask_text_input_formatter)**: Para mascaramento de campos como telefone e data.
+- **[brasil_fields](https://pub.dev/packages/brasil_fields)**: Para validação e formatação de dados brasileiros (CPF, telefone, CEP).
+- **[flutter_svg](https://pub.dev/packages/flutter_svg)**: Para exibir imagens no formato SVG.
+- **[timezone](https://pub.dev/packages/timezone)**: Para manipulação de datas e fusos horários.
+- **[path_provider](https://pub.dev/packages/path_provider)**: Para acesso a diretórios locais no dispositivo.
 
-> A documentação completa está disponível em:  
-> 🔗 https://pokeapi.co/docs/v2
-
----
-
-## 🔸 Nível 1 — `level_1`
-
-- Realizar todas as **etapas iniciais**
-- Mostrar uma **listagem de Pokémons** com:
-- Imagem
-- Nome
-- Ao clicar em um card da listagem, exibir a tela de **detalhes** com:
-- Imagem
-- Nome
-- Altura
-- Peso
+Essas bibliotecas foram escolhidas para proporcionar uma aplicação escalável, modular, reativa e compatível com padrões modernos de Flutter.
 
 ---
 
-## 🔸 Nível 2 — `level_2`
+## Pré-requisitos
 
-- Tudo do **Nível 1**
-- Armazenar localmente em **cache** as consultas feitas à API
-- Criar um **filtro por nome** para a listagem
-- Na tela de detalhes, exibir também:
-- **Tipos**
-- **Habilidades**
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) >= 3.9.0
+- Android Studio ou VS Code com suporte a Flutter
+- Emulador ou dispositivo físico para testes
 
 ---
 
-## 🔸 Nível 3 — `level_3`
+## Instalação
 
-- Tudo do **Nível 2**
-- Criar uma **Splash screen customizada**
-- Limpar o **cache** ao fechar o app
-- Implementar **paginação** na listagem
-- Ao clicar em um tipo ou habilidade, exibir a lista de pokémons relacionados
-- Permitir navegação para os detalhes de pokémons relacionados
-- Criar **testes de unidade** para as regras de negócio
+1. Instale as dependências:
+
+```bash
+  flutter pub get
+```
+
+2. Execução do MobX:
+
+- Para executar uma vez e gerar os aquivos .g correspondentes:
+
+  ```bash
+    dart run build_runner build
+  ```
+
+- Para ficar ouvindo qualquer alteração em tempo real e gerar os aquivos .g correspondentes:
+  ```bash
+    dart run build_runner watch
+  ```
+
+## Execução
+
+1. Emulador Android
+
+```bash
+  flutter run
+```
+
+## Estrutura do Projeto
+
+```shell
+
+lib
+├── app
+│ ├── core # Camada central da aplicação, com recursos reutilizáveis
+│ │ ├── configs # Configurações globais, como tema, rotas, variáveis de ambiente
+│ │ ├── enums # Enumerações utilizadas em toda a aplicação
+│ │ ├── interfaces # Interfaces para padronizar serviços
+│ │ ├── models # Modelos de dados globais e DTOs
+│ │ ├── shared # Widgets, utilitários e funções reutilizáveis
+│ │ └── themes # Configurações de cores, tipografia e temas da aplicação
+│
+│ ├── services # Comunicação com APIs externas
+│ │ ├── pokemon # Chamadas relacionadas a pokemon
+│ │ ├── http # Implementação do HTTP client (Dio)
+│ │ ├── interfaces # Interfaces que definem contratos de services
+│ │ └── login # Chamadas relacionadas a login e cadastro
+│
+│ ├── modules # Funcionalidades principais da aplicação, cada módulo isolado
+│ │ ├── pokemon # Módulo de pokemon
+│ │ │ ├── controller # Gerencia a lógica do módulo de pokemon
+│ │ │ ├── models # Modelos de dados específicos do módulo
+│ │ │ └── views # Telas e widgets do módulo
+│ │ └── menu # Módulo do menu lateral
+└── main.dart # Ponto de entrada da aplicação
+```
+
+### Descrição das Pastas Principais
+
+- **core**: Contém toda a lógica compartilhada e configurações globais, garantindo que o código repetido seja minimizado.
+- **services**: Responsáveis por todas as chamadas à API, separados por contexto (pokemons, etc.).
+- **modules**: Cada módulo representa uma funcionalidade da aplicação, com sua própria lógica, modelos e telas.
+- **main.dart**: Inicializa a aplicação e carrega os módulos via Flutter Modular.
 
 ---
 
-## 💎 Pontos Extras (opcional)
+Essa organização permite escalabilidade, separação de responsabilidades e facilita testes e manutenção do projeto.
 
-- Utilizar **GetX**
-- Configurar **Firebase Crashlytics**
-- Criar **channel nativo (Kotlin)** para detectar mudanças de conexão e exibir mensagem de status offline no app
-- Utilizar uma arquitetura (MVC, MVVM, MVP, MVU)
+## Observações
 
----
-
-## 💡 Boas práticas
-
-- Faça commits frequentes e descritivos
-- Trabalhe com **branches separadas por nível** (ex: `level_1`, `level_2`, etc)
-- Use Pull Requests (PRs) ao evoluir entre níveis
-- Seja criativo(a), mas evite cópias ou uso de IA — nós vamos perceber 😎
-
----
-
-Boa sorte e divirta-se!  
-🚀 Equipe Mottu
+- A aplicação utiliza Flutter Modular para organizar a arquitetura e facilitar a injeção de dependências.
+- O gerenciamento de estado com MobX garante que as alterações de dados sejam refletidas imediatamente na UI.
+- Todas as mensagens de erro são exibidas ao usuário via FlutterToast para melhor experiência.
+- Suporte a múltiplos idiomas está habilitado com easy_localization.
